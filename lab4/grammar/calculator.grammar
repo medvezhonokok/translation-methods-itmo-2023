@@ -1,0 +1,25 @@
+NUMBER$-----""=-=-=PLUS-----"+"=-=-=MINUS-----"-"=-=-=MULTIPLY$-----"*"=-=-=DIVIDE-----"/"=-=-=LPAREN-----"("-----=-=-=RPAREN-----")"=-=-=END-----"eof"=-=-=VARIABLE-----""=-=-=OP_CORN_BR-----"<"=-=-=CLOSE_CORN_BR-----">"=-=-=NUMBER1-----""
+#NESTED#NUMBER$-----"deque.add(Integer.parseInt(getCurrentToken().getTokenValue()));result.addChild(new Tree(getCurrentToken().name(), getCurrentTokenValueTree()));read();"=-=-=MINUS-----"int x = deque.pollLast();result.addChild(new Tree(getCurrentToken().name(), getCurrentTokenValueTree()));result.addChild(getT_Tree());int y = deque.pollLast();deque.add(x - y);result.addChild(getEPrimeTree());"=-=-=PLUS-----"int x = deque.pollLast();result.addChild(new Tree(getCurrentToken().name(), getCurrentTokenValueTree()));result.addChild(getT_Tree());int y = deque.pollLast();deque.add(x + y);result.addChild(getEPrimeTree());"=-=-=MULTIPLY$-----"int x = deque.pollLast();result.addChild(new Tree(getCurrentToken().name(), getCurrentTokenValueTree()));read();result.addChild(getFTree());int y = deque.pollLast();deque.add(x * y);"=-=-=CLOSE_CORN_BR-----"List<Integer> lst = new ArrayList<>(deque);deque.clear();deque.add(lst.size() % 2 == 0 ? lst.get(lst.size() / 2) : lst.get((lst.size() + 1) / 2));result.addChild(new Tree(getCurrentToken().name(), getCurrentTokenValueTree()));"=-=-=NUMBER1-----"deque.add(Integer.parseInt(getCurrentToken().getTokenValue()));result.addChild(new Tree(getCurrentToken().name(), getCurrentTokenValueTree()));result.addChild(getNumbersTree());read();"
+
+E -> T_ EPrime -> 2
+
+EPrime -> _END -> 1
+EPrime -> _PLUS T_ EPrime -> 3
+EPrime -> _MINUS T_ EPrime -> 3
+
+T_ -> F TPrime -> 2
+
+TPrime -> _MULTIPLY$ F TPrime -> 3
+TPrime -> _END -> 1
+
+F -> _LPAREN E ClosingBracket_ -> 3
+F -> _NUMBER$ -> 1
+F -> _OP_CORN_BR Numbers CCBR -> 3
+
+CCBR -> _CLOSE_CORN_BR -> 1
+
+Numbers -> _END -> 1
+Numbers -> _NUMBER1$ Numbers -> 2
+Numbers -> _CLOSE_CORN_BR -> 1
+
+ClosingBracket_ -> _RPAREN -> 1

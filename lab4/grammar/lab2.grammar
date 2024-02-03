@@ -1,0 +1,34 @@
+LAMBDA-----"lambda"=-=-=COLON-----":"=-=-=COMMA-----","=-=-=PLUS-----"+"=-=-=MINUS-----"-"=-=-=MULTIPLY$-----"*"=-=-=LPAREN-----"("=-=-=RPAREN-----")"=-=-=VARIABLE-----""=-=-=NUMBER$-----""=-=-=END-----"eof"
+
+Init_ -> L Colon_ E -> 3
+
+L -> _LAMBDA Args_ Colon_ LPrime -> 2
+
+LPrime -> _END -> 1
+LPrime -> _LAMBDA Args_ Colon_ LPrime -> 4
+
+Colon_ -> _COLON -> 1
+
+Args_ -> _END -> 1
+Args_ -> _VARIABLE ArgsPrime_ -> 2
+
+ArgsPrime_ -> _END -> 1
+ArgsPrime_ -> _COMMA OtherArgs_ -> 2
+OtherArgs_ -> _VARIABLE ArgsPrime_ -> 2
+
+E -> T_ EPrime -> 2
+
+EPrime -> _END -> 1
+EPrime -> _PLUS T_ EPrime -> 3
+EPrime -> _MINUS T_ EPrime -> 3
+
+T_ -> F TPrime -> 2
+
+TPrime -> _MULTIPLY$ F TPrime -> 3
+TPrime -> _END -> 1
+
+F -> _LPAREN E ClosingBracket_ -> 3
+F -> _NUMBER$ -> 1
+F -> _VARIABLE -> 1
+
+ClosingBracket_ -> _RPAREN -> 1
